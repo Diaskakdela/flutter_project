@@ -29,11 +29,12 @@ class StudentRepo extends HumanRepo<Student>{
   @override
   Student addNew(Student t) {
     if(!studentsWithLessons.studentsLessonMark.containsKey(t)){
+      Map<Lesson, double> lessonsWithMark = {};
       for(Lesson lesson in l.items){
-        studentsWithLessons.studentsLessonMark.addAll({
-          t:{lesson:0}
-        });
+        lessonsWithMark.putIfAbsent(lesson, () => 0);
       }
+
+      studentsWithLessons.studentsLessonMark.putIfAbsent(t, () => lessonsWithMark);
     }
     return super.addNew(t);
   }

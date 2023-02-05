@@ -23,5 +23,6 @@ void main(){
   print(studentData.items.last.id);
 
   print(studentsWithLessons.studentsLessonMark);
-
+  studentsWithLessons.studentsLessonMark.forEach((key, value) {value.forEach((key1, value1) {
+    print(key1.name + value1.toString());});});
 }
