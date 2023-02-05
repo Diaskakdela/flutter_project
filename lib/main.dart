@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'dart:collection';
+
+import 'practice/firstTask.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +28,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'First Task'),
     );
   }
 }
@@ -48,16 +52,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final controller = TextEditingController();
 
-  void _incrementCounter() {
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.dispose();
+    super.dispose();
+  }
+
+  int _maxElement = 0;
+  int _minElement = 0;
+
+  var list;
+
+  void _updateMaxAndMinElements(String string){
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      list = getAndFillList();
+      _maxElement = getMaxElem(list);
+      _minElement = getMinElem(list);
     });
   }
 
@@ -95,21 +108,29 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: "Write Array's elements through space",
+
+            ),
+
             ),
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+              'Min elem of array: $_minElement \n Max elem of array: $_maxElement',
+            )
+            // Text(
+            //   '$_counter',
+            //   style: Theme.of(context).textTheme.displayLarge,
+            // ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        onPressed: () => _updateMaxAndMinElements(controller.text.toString()),
+        child: const Icon(Icons.add_circle),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+
   }
 }
