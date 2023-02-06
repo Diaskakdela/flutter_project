@@ -22,21 +22,28 @@ abstract class BaseRepository<T extends BaseEntityWithId>{
     }
     return returnElems;
   }
-  bool isNewItemAdded(int id){
-    Iterable<T> elems = abstractData.getItems();
-    for(int i = 0; i<elems.length; i++){
-      if(elems.elementAt(i).id==id){
-        return true;
-      }
+  bool isNewItemAdded(T t){
+    if(abstractData.getItems().contains(t)){
+      return true;
     }
     return false;
   }
-
   T addNew(T t){
     abstractData.items.add(t);
-    if(isNewItemAdded(t.id)){
+    if(isNewItemAdded(t)){
       return t;
     }
     throw Exception("Something went wrong");
+  }
+  void delete(T t){
+    if(isNewItemAdded(t)){
+      abstractData.getItems().remove(t);
+    }
+    else{
+      throw Exception("This item doesn't exist");
+    }
+  }
+  List<T> getAll(){
+    return abstractData.getItems();
   }
 }
