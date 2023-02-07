@@ -6,5 +6,6 @@ class Lesson extends BaseEntityWithId{
   String name;
   String discValue = "L";
 
+
   Lesson(this.name):super();
 }

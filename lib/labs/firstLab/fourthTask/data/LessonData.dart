@@ -3,7 +3,7 @@ import 'package:flutter_project/labs/firstLab/fourthTask/data/PrintableData.dart
 
 import '../model/Lesson.dart';
 
-class LessonData extends AbstractData<Lesson> implements PrintableData{
+class LessonData extends AbstractData<Lesson>{
 
   static final LessonData _singleton = LessonData._internal();
 

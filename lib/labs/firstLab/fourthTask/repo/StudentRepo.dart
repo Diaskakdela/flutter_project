@@ -26,30 +26,39 @@ class StudentRepo extends HumanRepo<Student>{
     return false;
   }
 
-  void deleteLessonFromStudent(Lesson lesson, Student student){
+  bool deleteLessonFromStudent(Lesson lesson, Student student){
     if(abstractData.items.contains(student)){
       abstractData.items.firstWhere((element) => element==student).lessonsWithMark.remove(lesson);
     }
     if(!studentHasLesson(student, lesson)){
-      print("Student with fullName: ${student.fullName} and id: ${student.id} dropped lesson ${lesson.name}");
+      return true;
+      // print("Student with fullName: ${student.fullName} and id: ${student.id} dropped lesson ${lesson.name}");
     }
+    return false;
   }
-  void addNewLessonToStudent(Lesson lesson, Student student){
+  bool addNewLessonToStudent(Lesson lesson, Student student){
     if(abstractData.items.contains(student)){
       if(!studentHasLesson(student, lesson)){
         abstractData.items.firstWhere((element) => element==student).lessonsWithMark.putIfAbsent(lesson, () => 0);
+        // print("Lesson ${lesson.name} added to student ${student.fullName}");
+        return true;
       }
-      else{
-        print("Student ${student.fullName} has lesson ${lesson.name} already");
-      }
+      // else{
+      //   print("Student ${student.fullName} has lesson ${lesson.name} already");
+      //   return false;
+      // }
     }
+    return false;
+
   }
 
-  void changeStudentsLessonGrade(Lesson lesson, double mark, Student student){
+  bool changeStudentsLessonGrade(Lesson lesson, double mark, Student student){
     if(abstractData.items.contains(student) && studentHasLesson(student, lesson)) {
       abstractData.items.firstWhere((element) => element==student).lessonsWithMark.update(lesson, (value) => mark);
-      print("Grade $mark was given to student ${student.fullName} in the subject ${lesson.name} ");
+      return true;
+      // print("Grade $mark was given to student ${student.fullName} in the subject ${lesson.name} ");
     }
+    return false;
   }
 
 }

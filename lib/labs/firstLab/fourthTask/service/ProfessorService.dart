@@ -47,6 +47,7 @@ class ProfessorService{
   }
   void deleteStudent(Student student){
     studentRepo.delete(student);
+    print("Student ${student.fullName} was deleted");
   }
   Student? findStudentById(int id){
     return studentRepo.getById(id);
@@ -58,13 +59,23 @@ class ProfessorService{
     return studentRepo.getStudentsWhoHasLesson(lesson);
   }
   void addNewLessonToStudent(Lesson lesson, Student student){
-    studentRepo.addNewLessonToStudent(lesson, student);
+    if(!studentRepo.addNewLessonToStudent(lesson, student)){
+      print("Student ${student.fullName} has lesson ${lesson.name} already");
+    }
+    print("Lesson ${lesson.name} added to student ${student.fullName}");
   }
   void deleteLessonFromStudent(Lesson lesson, Student student){
-    studentRepo.deleteLessonFromStudent(lesson, student);
+    if(studentRepo.deleteLessonFromStudent(lesson, student)){
+      print("Student with fullName: ${student.fullName} and id: ${student.id} dropped lesson ${lesson.name}");
+    }
+    else{
+      print("Lesson wasn't deleted");
+    }
   }
   void changeStudentsLessonGrade(Lesson lesson, double mark, Student student){
-    studentRepo.changeStudentsLessonGrade(lesson, mark, student);
+    if(!studentRepo.changeStudentsLessonGrade(lesson, mark, student)){
+      print("Smthg went wrong changeStudentsLessonGrade");
+    }
+    print("Grade $mark was given to student ${student.fullName} in the subject ${lesson.name} ");
   }
-
 }

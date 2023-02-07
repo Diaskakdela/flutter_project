@@ -27,6 +27,12 @@ void main(){
   professorService.deleteLessonFromStudent(professorService.findLessonByName("Math"), professorService.studentRepo.getById(2)!);
   professorService.studentData.printData();
 
+  professorService.deleteStudent(professorService.findStudentById(2)!);
+  professorService.studentData.printData();
+
+
+  professorService.professorRepo.getAll().forEach((element) {print(element.fullName);});
+
   print(Process.runSync("clear", [], runInShell: true).stdout);
 }
 

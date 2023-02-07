@@ -24,13 +24,14 @@ class Student{
   }
   void printStudentProgress(){
     print(progress);
+    print("Average = ${getAverageGrade()}");
   }
   double getAverageGrade(){
     double average = 0;
     if(progress.isNotEmpty) {
       progress.forEach((key, value) { average+=value; });
     }
-    return average;
+    return average/3;
   }
 }
 
@@ -64,7 +65,7 @@ void main(){
   Lesson englishLesson = English();
   Lesson biologyLesson = Biology();
 
-  List<Lesson> lessons = {mathLesson, englishLesson, biologyLesson} as List<Lesson>;
+  List<Lesson> lessons = List.of({mathLesson, englishLesson, biologyLesson});
 
   Student student = Student("Dias", 20);
 

@@ -10,3 +10,10 @@ abstract class Human extends BaseEntityWithId{
 
   Human(this.fullName, this.weight, this.height, this.birthDate, this.address):super();
 }
+
+mixin PrintInfo{
+  String info = " ";
+  void printInfo(){
+    print(info);
+  }
+}
